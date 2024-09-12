@@ -1,0 +1,169 @@
+/movie-db
+    index.html         # Homepage
+    movie.html         # Movie details page
+    /css
+        styles.css     # Styling for the site
+    /js
+        script.js      # JavaScript for interactivity
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Movie Database</h1>
+        <input type="text" id="search" placeholder="Search movies...">
+        <button id="searchBtn">Search</button>
+    </header>
+
+    <main>
+        <h2>Popular Movies</h2>
+        <div id="movie-list">
+            <!-- Movie cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Movie Database</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+#search {
+    padding: 10px;
+    margin: 10px;
+}
+
+#movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.movie-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+// Dummy movie data
+const movies = [
+    {
+        title: 'Inception',
+        year: 2010,
+        director: 'Christopher Nolan',
+        poster: 'https://via.placeholder.com/200x300', // Replace with actual image URL
+    },
+    {
+        title: 'The Matrix',
+        year: 1999,
+        director: 'The Wachowskis',
+        poster: 'https://via.placeholder.com/200x300',
+    },
+    {
+        title: 'Interstellar',
+        year: 2014,
+        director: 'Christopher Nolan',
+        poster: 'https://via.placeholder.com/200x300',
+    },
+    // Add more movies here
+];
+
+// Function to render movies
+function renderMovies(movieArray) {
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = ''; // Clear previous movies
+
+    movieArray.forEach((movie) => {
+        const movieCard = document.createElement('div');
+        movieCard.classList.add('movie-card');
+        
+        movieCard.innerHTML = `
+            <img src="${movie.poster}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.year}</p>
+            <p>Director: ${movie.director}</p>
+        `;
+
+        movieList.appendChild(movieCard);
+    });
+}
+
+// Initial rendering of movies
+renderMovies(movies);
+
+// Search functionality
+const searchInput = document.getElementById('search');
+const searchBtn = document.getElementById('searchBtn');
+
+searchBtn.addEventListener('click', function() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredMovies = movies.filter(movie => 
+        movie.title.toLowerCase().includes(searchTerm)
+    );
+    renderMovies(filteredMovies);
+});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Movie Database - Movie Details</h1>
+    </header>
+
+    <main>
+        <div id="movie-details">
+            <img src="https://via.placeholder.com/200x300" alt="Movie Poster">
+            <h2>Movie Title</h2>
+            <p>Year: 2024</p>
+            <p>Director: Some Director</p>
+            <p>Description: This is a detailed description of the movie.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Movie Database</p>
+    </footer>
+</body>
+</html>
